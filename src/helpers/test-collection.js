@@ -24,14 +24,14 @@ module.exports = function(collection)
 
 		// 1. All elements must be objects
 		if (typeof element !== "object")
-			throw new TypeError("Non-object in collection.");
+			throw new CollectionError("Non-object in collection.");
 
 		// 2. All objects must have the same keys
 		const elementKeys = Object.keys(element).sort();
 		if (i === 0)
 			keys = elementKeys;
 		else if (!arrayEquals(keys, elementKeys))
-			throw new TypeError("Keys did not match in collection.");
+			throw new CollectionError("Keys did not match in collection.");
 
 		// 3. Matching keys must have the same types
 		const elementTypes = [];
@@ -40,7 +40,7 @@ module.exports = function(collection)
 		if (i === 0)
 			types = elementTypes;
 		else if (!objectEquals(types, elementTypes))
-			throw new TypeError("Mismatched types in collection.");
+			throw new CollectionError("Mismatched types in collection.");
 	}
 
 	return true;
