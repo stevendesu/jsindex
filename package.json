@@ -1,0 +1,27 @@
+{
+  "name": "jsindex",
+  "version": "0.1.0",
+  "description": "For performant database-like operations on JavaScript",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevendesu/jsindex.git"
+  },
+  "keywords": [
+    "database",
+    "perfmatters"
+  ],
+  "author": "Steven Barnett <steven.abarnett@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stevendesu/jsindex/issues"
+  },
+  "homepage": "https://github.com/stevendesu/jsindex#readme",
+  "dependencies": {
+    "csv-parse": "3.2.0",
+    "csv-stringify": "4.3.1"
+  }
+}
