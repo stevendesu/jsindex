@@ -7,7 +7,7 @@ function arrayEquals(first, second)
 
 function objectEquals(first, second)
 {
-	for (var key in first)
+	for (const key in first)
 		if (first.hasOwnProperty(key) && first[key] !== second[key])
 			return false;
 	return true;
@@ -15,8 +15,8 @@ function objectEquals(first, second)
 
 module.exports = function(collection)
 {
-	var keys;
-	var types = {};
+	let keys;
+	let types = {};
 
 	for (let i = 0; i < collection.length; i++)
 	{
@@ -35,7 +35,7 @@ module.exports = function(collection)
 
 		// 3. Matching keys must have the same types
 		const elementTypes = [];
-		for (var j = 0; j < keys.length; j++)
+		for (let j = 0; j < keys.length; j++)
 			elementTypes[keys[j]] = typeof element[keys[j]];
 		if (i === 0)
 			types = elementTypes;

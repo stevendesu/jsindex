@@ -8,7 +8,7 @@ function search(descriptor)
 
 	// Grab the appropriate indexes
 	const idxs = [];
-	for (var key in descriptor)
+	for (const key in descriptor)
 		if (descriptor.hasOwnProperty(key))
 			if (this.idx.hasOwnProperty(key))
 				if (this.idx[key].hasOwnProperty(descriptor[key]))

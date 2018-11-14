@@ -11,7 +11,8 @@ Array.load = function(source, options)
 		throw new ArgumentError("Source does not contain any data.");
 
 	const defaults = {
-		type: "csv"
+		type: "csv",
+		sync: true
 	};
 
 	const opts = Object.assign({}, defaults, options);
