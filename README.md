@@ -17,7 +17,7 @@ encounter at my job.
  - [Features](#features)
    - [Indexing](#indexing)
    - [Searching](#searching)
-   - [Joining / Merging](#joining-merging)
+   - [Joining / Merging](#joining--merging)
    - [Loading](#loading)
    - [Storing](#storing)
  - [Array Functions](#array-functions)
@@ -294,6 +294,7 @@ stays valid as you modify the collection or any record in the collection.
  - shift
  - unshift
  - splice
+ - concat
 
 ## Contributin'
 
