@@ -309,7 +309,7 @@ functionality.
 
 ## Implementation Details
 
-I kept asking myself why I did things one wya instead of another. So I decided
+I kept asking myself why I did things one way instead of another. So I decided
 to document my thought processes in the README for my future-self's benefit.
 
 This could also benefit anyone who chooses to contribute to this library.
