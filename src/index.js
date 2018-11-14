@@ -59,6 +59,7 @@ Array.prototype.index = function(indexes)
 	this.shift = arrayFunctions.shift;
 	this.unshift = arrayFunctions.unshift;
 	this.splice = arrayFunctions.splice;
+	this.concat = arrayFunctions.concat;
 
 	// Convenience. Now we can say: var arr = [1, 2, 3].index();
 	return this;

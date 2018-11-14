@@ -5,6 +5,7 @@ const pop = require("./pop");
 const shift = require("./shift");
 const unshift = require("./unshift");
 const splice = require("./splice");
+const concat = require("./concat");
 
 module.exports = {
 	search: search,
@@ -13,5 +14,6 @@ module.exports = {
 	pop: pop,
 	shift: shift,
 	unshift: unshift,
-	splice: splice
+	splice: splice,
+	concat: concat
 };
