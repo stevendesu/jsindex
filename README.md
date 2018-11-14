@@ -190,7 +190,7 @@ library. So long as I was doing that, I thought I could make the API a bit more
 powerful and useful. Consider the new code:
 
 ```js
-require("jsindex);
+require("jsindex");
 parties.index();
 candidates.index();
 candidates.merge(parties, "party");
