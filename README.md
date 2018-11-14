@@ -317,7 +317,7 @@ This could also benefit anyone who chooses to contribute to this library.
 >**Why do we override the array functions instead of using an observer?**
 
 [Array.observe][2] has been deprecated and replaced by [Proxy][3]. Some common
-array operations, when using a Proxy, involve potentially HUNDREDS of function
+array operations, when using a Proxy, involve incredible numbers of function
 calls. For example, consider the following:
 
 ```js
@@ -333,7 +333,7 @@ arr = new Proxy(arr, {
 arr.splice(1, 1);
 ```
 
-This is only deleting a single element, reindexes ***every other element***.
+This only deletes a single element, yet it reindexes ***every other element***.
 
 The V8 engine can do this very efficiently for a normal array. However when we
 use a Proxy, you'll see `has` and `set` each get called 1 million times:
