@@ -10,9 +10,9 @@ let addresses;
 beforeEach(() =>
 {
 	people = [
-		{name: "Steven", party: "R", address: 1},
-		{name: "Stephanie", party: "X", address: 1},
-		{name: "Michael", party: "D", address: 2}
+		{name: "Alice", party: "R", address: 1},
+		{name: "Bob", party: "X", address: 1},
+		{name: "Charlie", party: "D", address: 2}
 	];
 
 	parties = [
@@ -35,9 +35,9 @@ test("Left Join", () =>
 {
 	const combined = people.merge(parties, "party");
 	expect(combined).toEqual([
-		{name: "Steven", party: "R", address: 1, partyName: "Republican"},
-		{name: "Stephanie", party: "X", address: 1, partyName: null},
-		{name: "Michael", party: "D", address: 2, partyName: "Democrat"},
+		{name: "Alice", party: "R", address: 1, partyName: "Republican"},
+		{name: "Bob", party: "X", address: 1, partyName: null},
+		{name: "Charlie", party: "D", address: 2, partyName: "Democrat"},
 	]);
 });
 
@@ -50,9 +50,9 @@ test("Custom Join On", () =>
 		}
 	});
 	expect(combined).toEqual([
-		{name: "Steven", party: "R", address: 1, street: "123 Example St", city: "Example", state: "EX"},
-		{name: "Stephanie", party: "X", address: 1, street: "123 Example St", city: "Example", state: "EX"},
-		{name: "Michael", party: "D", address: 2, street: "987 Sample Rd", city: "Sample", state: "SM"}
+		{name: "Alice", party: "R", address: 1, street: "123 Example St", city: "Example", state: "EX"},
+		{name: "Bob", party: "X", address: 1, street: "123 Example St", city: "Example", state: "EX"},
+		{name: "Charlie", party: "D", address: 2, street: "987 Sample Rd", city: "Sample", state: "SM"}
 	]);
 });
 
@@ -63,8 +63,8 @@ test("Inner Join", () =>
 		joinType: "inner"
 	});
 	expect(combined).toEqual([
-		{name: "Steven", party: "R", address: 1, partyName: "Republican"},
-		{name: "Michael", party: "D", address: 2, partyName: "Democrat"},
+		{name: "Alice", party: "R", address: 1, partyName: "Republican"},
+		{name: "Charlie", party: "D", address: 2, partyName: "Democrat"},
 	]);
 });
 
@@ -75,8 +75,8 @@ test("Right Join", () =>
 		joinType: "right"
 	});
 	expect(combined).toEqual([
-		{name: "Steven", party: "R", address: 1, partyName: "Republican"},
-		{name: "Michael", party: "D", address: 2, partyName: "Democrat"},
+		{name: "Alice", party: "R", address: 1, partyName: "Republican"},
+		{name: "Charlie", party: "D", address: 2, partyName: "Democrat"},
 		{name: null, party: "I", address: null, partyName: "Independent"},
 	]);
 });
@@ -85,7 +85,7 @@ test("Outer Join", () =>
 {
 	expect(() =>
 	{
-		const combined = people.merge(parties, {
+		people.merge(parties, {
 			joinOn: "party",
 			joinType: "outer"
 		});

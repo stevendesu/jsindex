@@ -46,9 +46,9 @@ database for all students you may end up with something like the following:
 
 ```js
 var students = [
-	{name: "Steven Barnett", gpa: 2.5, language: "English"},
-	{name: "Jose Ramirez", gpa: 4.0, language: "Spanish"},
-	{name: "Alice Example", gpa: 3.2, language: "English"},
+	{name: "Alice", gpa: 4.0, language: "English"},
+	{name: "Bob", gpa: 2.5, language: "Spanish"},
+	{name: "Charlie", gpa: 3.2, language: "English"},
 	...
 ];
 ```
@@ -68,43 +68,43 @@ console.log(students.idx);
 // Outputs:
 {
 	name: {
-		Steven Barnett: [
-			{name: "Steven Barnett", gpa: 2.5, language: "English"},
+		Alice: [
+			{name: "Alice", gpa: 4.0, language: "English"},
 			...
 		],
-		Jose Ramirez: [
-			{name: "Jose Ramirez", gpa: 4.0, language: "Spanish"},
+		Bob: [
+			{name: "Bob", gpa: 2.5, language: "Spanish"},
 			...
 		],
-		Alice Example: [
-			{name: "Alice Example", gpa: 3.2, language: "English"},
+		Charlie: [
+			{name: "Charlie", gpa: 3.2, language: "English"},
 			...
 		],
 		...
 	},
 	gpa: {
 		2.5: [
-			{name: "Steven Barnett", gpa: 2.5, language: "English"},
+			{name: "Bob", gpa: 2.5, language: "Spanish"},
 			...
 		],
 		3.2: [
-			{name: "Alice Example", gpa: 3.2, language: "English"},
+			{name: "Charlie", gpa: 3.2, language: "English"},
 			...
 		],
 		4.0: [
-			{name: "Jose Ramirez", gpa: 4.0, language: "Spanish"},
+			{name: "Alice", gpa: 4.0, language: "English"},
 			...
 		],
 		...
 	},
 	language: {
 		English: [
-			{name: "Steven Barnett", gpa: 2.5, language: "English"},
-			{name: "Alice Example", gpa: 3.2, language: "English"},
+			{name: "Alice", gpa: 4.0, language: "English"},
+			{name: "Charlie", gpa: 3.2, language: "English"},
 			...
 		],
 		Spanish: [
-			{name: "Jose Ramirez", gpa: 4.0, language: "Spanish"},
+			{name: "Bob", gpa: 2.5, language: "Spanish"},
 			...
 		],
 		...
@@ -120,20 +120,20 @@ index consists of references, you can do the following:
 students.idx["langauge"]["English"][0].name = "Paul";
 ```
 
-This will set `Steven Barnett`s name to `Paul` ***everywhere*** (in the index,
+This will set `Alice`s name to `Paul` ***everywhere*** (in the index,
 in the original collection, etc).
 
 The advantage to this structure is that it lets us filter the array in constant
 time. Instead of:
 
 ```js
-students.filter(s => s.name === "Steven Barnett");
+students.filter(s => s.name === "Alice");
 ```
 
 We can just write:
 
 ```js
-student.idx.name["Steven Barnett"];
+student.idx.name["Alice"];
 ```
 
 ### Joining / Merging
@@ -378,17 +378,17 @@ to reflect the change. For instance, consider the following:
 
 ```js
 var students = [
-	{name: "Steven Barnett", gpa: 2.5, language: "English"},
-	{name: "Jose Ramirez", gpa: 4.0, language: "Spanish"},
-	{name: "Alice Example", gpa: 3.2, language: "English"}
+	{name: "Alice", gpa: 4.0, language: "English"},
+	{name: "Bob", gpa: 2.5, language: "Spanish"},
+	{name: "Charlie", gpa: 3.2, language: "English"}
 ];
 students.index();
 students[0].language = "Spanish";
 console.log(students.idx.language.Spanish);
 ```
 
-Since `Steven Barnett`s langauge was changed to `Spanish`, this index needs to
-be updated to return `Steven Barnett` as well as `Jose Ramirez`. To do this we
+Since `Alice`s langauge was changed to `Spanish`, this index needs to
+be updated to return `Alice` as well as `Bob`. To do this we
 use the [Proxy API][3] to trap changes to records and update the index.
 
 ## License
