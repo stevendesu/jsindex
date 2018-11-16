@@ -22,5 +22,5 @@ Array.load = function(source, options)
 
 	const formatter = formats[opts.type];
 
-	return formatter.load(source, options);
+	return formatter.load(source, opts);
 };
