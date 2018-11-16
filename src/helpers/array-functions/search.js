@@ -32,7 +32,7 @@ function search(descriptor)
 	for (let j = 0; j < idxs[0].length; j++)
 		refCount.set(idxs[0][j], 1);
 
-	for (let i = 1; 1 < idxs.length - 1; i++)
+	for (let i = 1; i < idxs.length - 1; i++)
 		for (let j = 0; j < idxs[i].length; j++)
 			if (refCount.has(idxs[i][j]))
 				refCount.set(idxs[i][j], refCount.get(idxs[i][j]) + 1);

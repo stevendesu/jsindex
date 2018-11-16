@@ -1,6 +1,6 @@
 {
   "name": "jsindex",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "For performant database-like operations on JavaScript",
   "main": "src/main.js",
   "scripts": {

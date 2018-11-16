@@ -8,13 +8,13 @@ let collection;
 beforeEach(() =>
 {
 	collection = [
-		{name: "Alice", age: 23, salary: 55000},
-		{name: "Bob", age: 28, salary: 38000},
-		{name: "Charlie", age: 42, salary: 80000},
-		{name: "Dana", age: 23, salary: 40000},
-		{name: "Eve", age: 18, salary: 15000}
+		{name: "Alice", age: 23, salary: 55000, gender: "female"},
+		{name: "Bob", age: 28, salary: 38000, gender: "male"},
+		{name: "Charlie", age: 42, salary: 80000, gender: "male"},
+		{name: "Dana", age: 23, salary: 40000, gender: "female"},
+		{name: "Eve", age: 18, salary: 15000, gender: "female"}
 	];
-	collection.index("age");
+	collection.index();
 });
 
 test("Search 1", () =>
@@ -39,4 +39,25 @@ test("Search 3", () =>
 		age: 30
 	});
 	expect(results).toEqual([]);
+});
+
+// https://github.com/stevendesu/jsindex/issues/9
+test("Two criteria", () =>
+{
+	const results = collection.search({
+		age: 28,
+		salary: 38000
+	});
+	expect(results).toEqual([collection[1]]);
+});
+
+// https://github.com/stevendesu/jsindex/issues/9
+test("Three criteria", () =>
+{
+	const results = collection.search({
+		age: 28,
+		salary: 38000,
+		gender: "male"
+	});
+	expect(results).toEqual([collection[1]]);
 });
