@@ -6,18 +6,46 @@ function search(descriptor)
 	if (typeof descriptor !== "object" || Array.isArray(descriptor))
 		throw new ArgumentError("Decsriptor must be an object");
 
-	// Grab the appropriate indexes
+	// Can't filter an empty collection
+	if (this.length === 0)
+		return [];
+
+	// Grab the appropriate indexes (if possible
 	const idxs = [];
+	let allIndexed = true;
 	for (const key in descriptor)
 		if (descriptor.hasOwnProperty(key))
 			if (this.idx.hasOwnProperty(key))
+			{
 				if (this.idx[key].hasOwnProperty(descriptor[key]))
 					idxs.push(this.idx[key][descriptor[key]]);
 				else
 					// The value they searched for isn't in the collection
 					return [];
+			}
+			else if (this[0].hasOwnProperty(key))
+			{
+				console.warn("Searching on non-indexed key `" + key + "`. This will cause performance issues.");
+				allIndexed = false;
+				break;
+			}
 			else
+			{
 				throw new CollectionError("Key `" + key + "` is not in collection.");
+			}
+
+	if (!allIndexed)
+	{
+		// Searching on a non-indexed key requires we do this the slow way
+		return this.filter(el =>
+		{
+			for (const key in descriptor)
+				if (descriptor.hasOwnProperty(key))
+					if (el[key] !== descriptor[key])
+						return false;
+			return true;
+		});
+	}
 
 	if (idxs.length < 1)
 		throw new ArgumentError("Must supply at least one search key.");

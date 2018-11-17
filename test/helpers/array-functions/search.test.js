@@ -1,5 +1,5 @@
 /* global beforeEach, test, expect */
-/* eslint-disable no-magic-numbers */
+/* eslint-disable no-magic-numbers, no-empty-function */
 
 require("../../../src/main");
 
@@ -8,13 +8,13 @@ let collection;
 beforeEach(() =>
 {
 	collection = [
-		{name: "Alice", age: 23, salary: 55000, gender: "female"},
-		{name: "Bob", age: 28, salary: 38000, gender: "male"},
-		{name: "Charlie", age: 42, salary: 80000, gender: "male"},
-		{name: "Dana", age: 23, salary: 40000, gender: "female"},
-		{name: "Eve", age: 18, salary: 15000, gender: "female"}
+		{name: "Alice", age: 23, salary: 55000, gender: "female", pets: true},
+		{name: "Bob", age: 28, salary: 38000, gender: "male", pets: true},
+		{name: "Charlie", age: 42, salary: 80000, gender: "male", pets: false},
+		{name: "Dana", age: 23, salary: 40000, gender: "female", pets: false},
+		{name: "Eve", age: 18, salary: 15000, gender: "female", pets: true}
 	];
-	collection.index();
+	collection.index(["age", "salary", "gender"]);
 });
 
 test("Search 1", () =>
@@ -60,4 +60,29 @@ test("Three criteria", () =>
 		gender: "male"
 	});
 	expect(results).toEqual([collection[1]]);
+});
+
+// https://github.com/stevendesu/jsindex/issues/10
+test("Non-indexed", () =>
+{
+	const oldWarn = console.warn;
+	console.warn = () => {};
+	const results = collection.search({
+		pets: true
+	});
+	expect(results).toEqual([collection[0], collection[1], collection[4]]);
+	console.warn = oldWarn;
+});
+
+// https://github.com/stevendesu/jsindex/issues/10
+test("Non-indexed with Indexed", () =>
+{
+	const oldWarn = console.warn;
+	console.warn = () => {};
+	const results = collection.search({
+		pets: true,
+		gender: "female"
+	});
+	expect(results).toEqual([collection[0], collection[4]]);
+	console.warn = oldWarn;
 });
