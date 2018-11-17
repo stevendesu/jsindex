@@ -9,7 +9,8 @@ function rename(columns)
 			{
 				const oldKey = key;
 				const newKey = columns[key];
-				if (oldKey !== newKey) {
+				if (oldKey !== newKey)
+				{
 					Object.defineProperty(
 						this[i],
 						newKey,
@@ -28,7 +29,7 @@ function rename(columns)
 		{
 			const oldKey = key;
 			const newKey = columns[key];
-			if (this.idx.hasOwnProperty(oldKey) && oldKey !== newKey)
+			if (oldKey !== newKey)
 			{
 				Object.defineProperty(
 					this.idx,

@@ -60,6 +60,7 @@ Array.prototype.index = function(indexes)
 	this.search = arrayFunctions.search;
 	this.merge = arrayFunctions.merge;
 	this.rename = arrayFunctions.rename;
+	this.drop = arrayFunctions.drop;
 
 	// Finally, override several array functions to maintain indexes
 	this.push = arrayFunctions.push;
