@@ -1,4 +1,4 @@
-# Index.JS
+# JS-Index
 
 This is a medium-weight library I created to simplify a singular task I kept
 running into at my work. If this library isn't useful to you, I'm not offended.
