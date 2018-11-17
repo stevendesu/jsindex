@@ -44,6 +44,7 @@ test("Object === Index", () =>
 	expect(collection[4]).toBe(collection.idx.age[18][0]);
 });
 
+// https://github.com/stevendesu/jsindex/issues/8
 test("Empty Index", () =>
 {
 	collection.index("age");

@@ -119,6 +119,7 @@ test("Outer Join", () =>
 	}).toThrow("not implemented");
 });
 
+// https://github.com/stevendesu/jsindex/issues/4
 test("Merge Indexed with Non-Indexed Column", () =>
 {
 	// Replace console.warn with a NOOP for this test
@@ -137,6 +138,7 @@ test("Merge Indexed with Non-Indexed Column", () =>
 	console.warn = oldWarn;
 });
 
+// https://github.com/stevendesu/jsindex/issues/4
 test("Merge Two Non-Indexed Columns", () =>
 {
 	// Replace console.warn with a NOOP for this test
