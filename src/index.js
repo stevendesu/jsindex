@@ -29,7 +29,14 @@ Array.prototype.index = function(indexes)
 		if (typeof indexList[i] !== "string")
 			throw new ArgumentError("Array.prototype.index() expects parameter to be a string or array of striings.");
 
-		this.idx[indexList[i]] = {};
+		this.idx[indexList[i]] = new Proxy({}, {
+			get: function(obj, prop)
+			{
+				if (prop in obj)
+					return obj[prop];
+				return [];
+			}
+		});
 	}
 
 	// One-pass construction of the indexes

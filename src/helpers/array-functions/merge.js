@@ -71,10 +71,10 @@ function innerMerge(left, right, opts)
 	for (let i = 0; i < left.length; i++)
 	{
 		const matches = right.idx[rightOn][left[i][leftOn]];
-		if (typeof matches === "undefined")
-			continue;
 
-		if (matches.length > 1)
+		if (matches.length === 0)
+			continue;
+		else if (matches.length > 1)
 			throw new CollectionError("More than one row matched.");
 		else if (matches.length === 1)
 			merged.push(

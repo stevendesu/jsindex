@@ -18,16 +18,19 @@ beforeEach(() =>
 
 test("No Arguments", () =>
 {
+	// For now, just testing that this doesn't throw an error
 	collection.index();
 });
 
 test("String Argument", () =>
 {
+	// For now, just testing that this doesn't throw an error
 	collection.index("age");
 });
 
 test("Array Argument", () =>
 {
+	// For now, just testing that this doesn't throw an error
 	collection.index(["name", "age"]);
 });
 
@@ -39,4 +42,10 @@ test("Object === Index", () =>
 	expect(collection[2]).toBe(collection.idx.age[42][0]);
 	expect(collection[3]).toBe(collection.idx.age[23][1]);
 	expect(collection[4]).toBe(collection.idx.age[18][0]);
+});
+
+test("Empty Index", () =>
+{
+	collection.index("age");
+	expect(collection.idx.age[20]).toEqual([]);
 });
