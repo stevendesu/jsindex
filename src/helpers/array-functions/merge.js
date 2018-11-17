@@ -38,9 +38,17 @@ function leftMerge(left, right, opts)
 	const merged = [];
 	const keys = Object.keys(right[0]).filter(key => key !== rightOn);
 
+	if (!right.idx.hasOwnProperty(rightOn))
+		console.warn("Merging on non-indexed column `" + rightOn + "` can negatively impact performance.");
+
 	for (let i = 0; i < left.length; i++)
 	{
-		const matches = right.idx[rightOn][left[i][leftOn]];
+		let matches;
+		if (right.idx.hasOwnProperty(rightOn))
+			matches = right.idx[rightOn][left[i][leftOn]];
+		else
+			matches = right.filter(el => el[rightOn] === left[i][leftOn]);
+
 		if (typeof matches === "undefined")
 			merged.push(
 				mergeRow(left[i], null, keys, opts.inPlace)
@@ -68,9 +76,16 @@ function innerMerge(left, right, opts)
 	const merged = [];
 	const keys = Object.keys(right[0]).filter(key => key !== rightOn);
 
+	if (!right.idx.hasOwnProperty(rightOn))
+		console.warn("Merging on non-indexed column `" + rightOn + "` can negatively impact performance.");
+
 	for (let i = 0; i < left.length; i++)
 	{
-		const matches = right.idx[rightOn][left[i][leftOn]];
+		let matches;
+		if (right.idx.hasOwnProperty(rightOn))
+			matches = right.idx[rightOn][left[i][leftOn]];
+		else
+			matches = right.filter(el => el[rightOn] === left[i][leftOn]);
 
 		if (matches.length === 0)
 			continue;
@@ -95,12 +110,20 @@ function rightMerge(left, right, opts)
 	const merged = [];
 	let keys = Object.keys(left[0]);
 
+	if (!left.idx.hasOwnProperty(leftOn))
+		console.warn("Merging on non-indexed column `" + leftOn + "` can negatively impact performance.");
+
 	if (leftOn === rightOn)
 		keys = keys.filter(key => key !== leftOn);
 
 	for (let i = 0; i < right.length; i++)
 	{
-		const matches = left.idx[leftOn][right[i][rightOn]];
+		let matches;
+		if (left.idx.hasOwnProperty(leftOn))
+			matches = left.idx[leftOn][right[i][rightOn]];
+		else
+			matches = left.filter(el => el[leftOn] === right[i][rightOn]);
+
 		let row;
 		if (typeof matches === "undefined")
 			row = mergeRow(right[i], null, keys, false);
