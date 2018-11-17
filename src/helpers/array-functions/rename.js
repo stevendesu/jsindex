@@ -3,7 +3,7 @@ const ArgumentError = require("../../errors/ArgumentError");
 function rename(columns)
 {
 	// Ensure all keys are in the collection
-	for (var key in columns)
+	for (const key in columns)
 		if (!this[0].hasOwnProperty(key))
 			throw new ArgumentError("Key `" + key + "` is not in collection.");
 
