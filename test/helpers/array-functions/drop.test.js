@@ -26,3 +26,16 @@ test("Drop Indexes", () =>
 	collection.drop(["c"]);
 	expect(collection.idx.c).toBe(undefined);
 });
+
+test("Drop non-existent", () =>
+{
+	const collection = [
+		{a: 1, b: 2, c: 3},
+		{a: 4, b: 5, c: 6},
+		{a: 7, b: 8, c: 9}
+	].index();
+	expect(() =>
+	{
+		collection.drop(["d"]);
+	}).toThrow("Key `d` is not in collection.");
+});

@@ -1,5 +1,12 @@
+const ArgumentError = require("../../errors/ArgumentError");
+
 function drop(columns)
 {
+	// Ensure all keys are in the collection
+	for (let i = 0; i < columns.length; i++)
+		if (!this[0].hasOwnProperty(columns[i]))
+			throw new ArgumentError("Key `" + columns[i] + "` is not in collection.");
+
 	// Update the records
 	for (let i = 0; i < this.length; i++)
 	{

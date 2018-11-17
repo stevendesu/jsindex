@@ -40,3 +40,18 @@ test("Rename Indexes", () =>
 		7: [collection[2]]
 	});
 });
+
+test("Rename non-existent", () =>
+{
+	const collection = [
+		{a: 1, b: 2, c: 3},
+		{a: 4, b: 5, c: 6},
+		{a: 7, b: 8, c: 9}
+	].index();
+	expect(() =>
+	{
+		collection.rename({
+			d: "x"
+		});
+	}).toThrow("Key `d` is not in collection.");
+});
