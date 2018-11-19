@@ -294,7 +294,7 @@ stays valid as you modify the collection or any record in the collection.
  - shift
  - unshift
  - splice
- - concat
+ - ~concat~ (I've opted to not override the default concat method. See #2)
 
 ## Contributin'
 
