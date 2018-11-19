@@ -307,6 +307,19 @@ Unlike minimux, this library is ***not*** minimalist. I will accept any new
 features so long as they don't come with a major performance impact to existing
 functionality.
 
+If you want to contribute, the best way to get started is to check out the
+[issue list][2]. Issues tagged with "good first issue" require minimal
+knowledge of the library, data structures, etc - but just the ability to grep
+the code for a pattern and re-write it with something functionally equivalent.
+I try to go through and tag all issues with either the `major`, `minor`, or
+`patch` labels to indicate the effect on the semantic version. In general I
+will attempt to knock out all `patch` issues before solving `minor` issues,
+I will attempt to knock out all `minor` issues befor solving `major` issues,
+and I will solve all `major` issues last. That said, I may skip or ignore an
+issue if it looks too hard to solve or if I feel like the proper solution will
+change with a major version change (and therefore any work done will just
+make the major version change harder)
+
 ## Implementation Details
 
 I kept asking myself why I did things one way instead of another. So I decided
@@ -316,7 +329,7 @@ This could also benefit anyone who chooses to contribute to this library.
 
 >**Why do we override the array functions instead of using an observer?**
 
-[Array.observe][2] has been deprecated and replaced by [Proxy][3]. Some common
+[Array.observe][3] has been deprecated and replaced by [Proxy][4]. Some common
 array operations, when using a Proxy, involve incredible numbers of function
 calls. For example, consider the following:
 
@@ -389,7 +402,7 @@ console.log(students.idx.language.Spanish);
 
 Since `Alice`s langauge was changed to `Spanish`, this index needs to
 be updated to return `Alice` as well as `Bob`. To do this we
-use the [Proxy API][3] to trap changes to records and update the index.
+use the [Proxy API][4] to trap changes to records and update the index.
 
 ## License
 
@@ -403,5 +416,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
   [1]: https://github.com/stevendesu/minimux
-  [2]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/observe
-  [3]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
+  [2]: https://github.com/stevendesu/jsindex/issues
+  [3]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/observe
+  [4]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
