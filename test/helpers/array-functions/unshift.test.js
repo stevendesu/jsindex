@@ -3,7 +3,7 @@
 
 require("../../../src/main");
 
-test("Array Push", () =>
+test("Array Unshift", () =>
 {
 	const collection = [
 		{name: "Alice", age: 23, salary: 55000},
@@ -15,19 +15,19 @@ test("Array Push", () =>
 	collection.index("age");
 
 	const newPerson = {name: "Fred", age: 18, salary: 15000};
-	collection.push(newPerson);
+	collection.unshift(newPerson);
 
 	// The elements of the collection are actually Proxy objects
 	// Therefore collection[5] will EQUAL newPerson, but not BE newPerson
-	expect(collection[5]).toEqual(newPerson);
+	expect(collection[0]).toEqual(newPerson);
 	// The __self__ helper was created to access the internal object
-	expect(collection[5].__self__).toBe(newPerson);
+	expect(collection[0].__self__).toBe(newPerson);
 	// Verify that the index was updated
-	expect(collection.idx.age[18][0]).toBe(collection[4]);
+	expect(collection.idx.age[18][0]).toBe(collection[0]);
 	expect(collection.idx.age[18][1]).toBe(collection[5]);
 });
 
-test("Multi-Push", () =>
+test("Multi-Unshift", () =>
 {
 	const collection = [
 		{key: 1, idx: 1},
@@ -38,17 +38,17 @@ test("Multi-Push", () =>
 	];
 	collection.index("idx");
 
-	collection.push(
+	collection.unshift(
 		{key: 6, idx: 2},
 		{key: 7, idx: 3}
 	);
 
 	expect(collection.length).toBe(7);
-	expect(collection[5]).toEqual({key: 6, idx: 2});
+	expect(collection[0]).toEqual({key: 6, idx: 2});
 	expect(collection.idx.idx[3]).toEqual([{key: 7, idx: 3}]);
 });
 
-test("Array Push Return Value", () =>
+test("Array Unshift Return Value", () =>
 {
 	const collection = [
 		{key: 1, idx: 1},
@@ -59,7 +59,7 @@ test("Array Push Return Value", () =>
 	];
 	collection.index("idx");
 
-	const returnValue = collection.push(
+	const returnValue = collection.unshift(
 		{key: 6, idx: 2},
 		{key: 7, idx: 3}
 	);

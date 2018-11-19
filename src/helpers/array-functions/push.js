@@ -18,7 +18,7 @@ function push()
 				else
 					this.idx[key][elements[i][key]] = [elements[i]];
 
-	return elements;
+	return elements[elements.length - 1];
 }
 
 module.exports = push;
