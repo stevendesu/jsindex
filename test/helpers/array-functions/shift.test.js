@@ -16,21 +16,23 @@ beforeEach(() =>
 	].index();
 });
 
-test("Pop Element", () =>
+test("Shift Element", () =>
 {
-	const eve = collection[4];
-	const element = collection.pop();
-	expect(element).toBe(eve);
+	const alice = collection[0];
+	const bob = collection[1];
+	const element = collection.shift();
+	expect(element).toBe(alice);
+	expect(collection[0]).toBe(bob);
 	expect(collection[4]).toBe(undefined);
 });
 
-test("Pop Index", () =>
+test("Shift Index", () =>
 {
-	collection.pop();
+	collection.shift();
 	expect(collection.idx.age).toEqual({
-		18: [],
-		23: [collection[0], collection[3]],
-		28: [collection[1]],
-		42: [collection[2]]
+		18: [collection[3]],
+		23: [collection[2]],
+		28: [collection[0]],
+		42: [collection[1]]
 	});
 });
