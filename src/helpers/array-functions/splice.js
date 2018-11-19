@@ -39,9 +39,17 @@ function splice(start, deleteCount)
 			for (const subkey in affected[key])
 				if (affected[key].hasOwnProperty(subkey))
 				{
-					this.idx[key][subkey] = this.idx[key][subkey].filter(el =>
-						affected[key][subkey].indexOf(el) >= 0
-					);
+					const oldIndex = this.idx[key][subkey];
+					const newIndex = new Array(oldIndex.length);
+					let cnt = 0;
+					for (let i = 0; i < oldIndex.length; i++)
+					{
+						const el = oldIndex[i];
+						if (affected[key][subkey].indexOf(el) >= 0)
+							newIndex[cnt++] = el;
+					}
+					newIndex.length = cnt;
+					this.idx[key][subkey] = newIndex;
 				}
 
 	// Finally, ensure API compatibility with Array.prototype.splice

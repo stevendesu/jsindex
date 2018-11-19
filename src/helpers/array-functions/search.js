@@ -37,14 +37,28 @@ function search(descriptor)
 	if (!allIndexed)
 	{
 		// Searching on a non-indexed key requires we do this the slow way
-		return this.filter(el =>
+		const returnValue = new Array(this.length);
+		let cnt = 0;
+		for (let i = 0; i < this.length; i++)
 		{
+			const el = this[i];
+			let keep = true;
 			for (const key in descriptor)
+			{
 				if (descriptor.hasOwnProperty(key))
+				{
 					if (el[key] !== descriptor[key])
-						return false;
-			return true;
-		});
+					{
+						keep = false;
+						break;
+					}
+				}
+			}
+			if (keep)
+				returnValue[cnt++] = el;
+		}
+		returnValue.length = cnt;
+		return returnValue;
 	}
 
 	if (idxs.length < 1)

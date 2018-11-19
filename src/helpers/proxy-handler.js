@@ -18,20 +18,29 @@ function getHandler(collection)
 			// Update the index
 			if (oldValue && collection.idx.hasOwnProperty(prop))
 			{
-				let ref;
-
 				// Remove from the old sub-index
-				collection.idx[prop][oldValue] = collection.idx[prop][oldValue].filter(el =>
+				// Unfortunately the Proxy API doesn't give us a way to access
+				// the Proxy object itself. "this" refers to the handler, and
+				// "obj" refers to the target. So we can't just use .indexOf()
+				// to find the element
+				//
+				// Once we've found it, we'll store it so we can push it onto
+				// the new index
+				let ref;
+				let loc;
+				const oldIndex = collection.idx[prop][oldValue];
+				for (let i = 0; i < oldIndex.length; i++)
 				{
-					if (el.__self__ === obj)
+					if (oldIndex[i].__self__ === obj)
 					{
-						ref = el;
-						return false;
+						ref = oldIndex[i];
+						loc = i;
+						break;
 					}
-					return true;
-				});
+				}
+				oldIndex.splice(loc, 1);
 
-				// Add to the new one
+				// Now add the element to the new index
 				if (collection.idx[prop].hasOwnProperty(val))
 					collection.idx[prop][val].push(ref);
 				else

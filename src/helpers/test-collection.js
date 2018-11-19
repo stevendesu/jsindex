@@ -2,7 +2,19 @@ const CollectionError = require("../errors/CollectionError");
 
 function arrayEquals(first, second)
 {
-	return first.sort().reduce((acc, el, idx) => acc && second[idx] === el);
+	// Assumes the two arrays are sorted
+	// In my case, I know this is true
+
+	if (first.length !== second.length)
+		return false;
+
+	for (let i = 0; i < first.length; i++)
+	{
+		if (first[i] !== second[i])
+			return false;
+	}
+
+	return true;
 }
 
 function objectEquals(first, second)
