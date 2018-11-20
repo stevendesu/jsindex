@@ -4,13 +4,12 @@ function shift()
 	const removed = Array.prototype.shift.apply(this);
 
 	// Update the appropriate indexes
-	for (const key in this.idx)
+	const keys = Object.keys(this.idx);
+	for (let i = 0; i < keys.length; i++)
 	{
-		if (this.idx.hasOwnProperty(key))
-		{
-			const index = this.idx[key][removed[key]];
-			index.splice(index.indexOf(removed), 1);
-		}
+		const key = keys[i];
+		const index = this.idx[key][removed[key]];
+		index.splice(index.indexOf(removed), 1);
 	}
 
 	return removed;

@@ -3,48 +3,43 @@ const ArgumentError = require("../../errors/ArgumentError");
 function rename(columns)
 {
 	// Ensure all keys are in the collection
-	for (const key in columns)
-		if (!this[0].hasOwnProperty(key))
-			throw new ArgumentError("Key `" + key + "` is not in collection.");
+	const keys = Object.keys(columns);
+	for (let i = 0; i < keys.length; i++)
+		if (!this[0].hasOwnProperty(keys[i]))
+			throw new ArgumentError("Key `" + keys[i] + "` is not in collection.");
 
 	// Update the records
 	for (let i = 0; i < this.length; i++)
 	{
-		for (const key in columns)
+		for (let j = 0; j < keys.length; j++)
 		{
-			if (columns.hasOwnProperty(key))
+			const oldKey = keys[j];
+			const newKey = columns[oldKey];
+			if (oldKey !== newKey)
 			{
-				const oldKey = key;
-				const newKey = columns[key];
-				if (oldKey !== newKey)
-				{
-					Object.defineProperty(
-						this[i],
-						newKey,
-						Object.getOwnPropertyDescriptor(this[i], oldKey)
-					);
-					delete this[i][oldKey];
-				}
+				Object.defineProperty(
+					this[i],
+					newKey,
+					Object.getOwnPropertyDescriptor(this[i], oldKey)
+				);
+				delete this[i][oldKey];
 			}
 		}
 	}
 
 	// Update the indexes
-	for (const key in columns)
+	for (let i = 0; i < keys.length; i++)
 	{
-		if (columns.hasOwnProperty(key))
+		const oldKey = keys[i];
+		const newKey = columns[oldKey];
+		if (oldKey !== newKey)
 		{
-			const oldKey = key;
-			const newKey = columns[key];
-			if (oldKey !== newKey)
-			{
-				Object.defineProperty(
-					this.idx,
-					newKey,
-					Object.getOwnPropertyDescriptor(this.idx, oldKey)
-				);
-				delete this.idx[oldKey];
-			}
+			Object.defineProperty(
+				this.idx,
+				newKey,
+				Object.getOwnPropertyDescriptor(this.idx, oldKey)
+			);
+			delete this.idx[oldKey];
 		}
 	}
 

@@ -19,9 +19,13 @@ function arrayEquals(first, second)
 
 function objectEquals(first, second)
 {
-	for (const key in first)
-		if (first.hasOwnProperty(key) && first[key] !== second[key])
+	const keys = Object.keys(first);
+	for (let i = 0; i < keys.length; i++)
+	{
+		const key = keys[i];
+		if (first[key] !== second[key])
 			return false;
+	}
 	return true;
 }
 

@@ -12,27 +12,31 @@ function search(descriptor)
 
 	// Grab the appropriate indexes (if possible
 	const idxs = [];
+	const keys = Object.keys(descriptor);
 	let allIndexed = true;
-	for (const key in descriptor)
-		if (descriptor.hasOwnProperty(key))
-			if (this.idx.hasOwnProperty(key))
-			{
-				if (this.idx[key].hasOwnProperty(descriptor[key]))
-					idxs.push(this.idx[key][descriptor[key]]);
-				else
-					// The value they searched for isn't in the collection
-					return [];
-			}
-			else if (this[0].hasOwnProperty(key))
-			{
-				console.warn("Searching on non-indexed key `" + key + "`. This will cause performance issues.");
-				allIndexed = false;
-				break;
-			}
+	for (let i = 0; i < keys.length; i++)
+	{
+		const key = keys[i];
+
+		if (this.idx.hasOwnProperty(key))
+		{
+			if (this.idx[key].hasOwnProperty(descriptor[key]))
+				idxs.push(this.idx[key][descriptor[key]]);
 			else
-			{
-				throw new CollectionError("Key `" + key + "` is not in collection.");
-			}
+				// The value they searched for isn't in the collection
+				return [];
+		}
+		else if (this[0].hasOwnProperty(key))
+		{
+			console.warn("Searching on non-indexed key `" + key + "`. This will cause performance issues.");
+			allIndexed = false;
+			break;
+		}
+		else
+		{
+			throw new CollectionError("Key `" + key + "` is not in collection.");
+		}
+	}
 
 	if (!allIndexed)
 	{
@@ -43,15 +47,13 @@ function search(descriptor)
 		{
 			const el = this[i];
 			let keep = true;
-			for (const key in descriptor)
+			for (let j = 0; j < keys.length; j++)
 			{
-				if (descriptor.hasOwnProperty(key))
+				const key = keys[j];
+				if (el[key] !== descriptor[key])
 				{
-					if (el[key] !== descriptor[key])
-					{
-						keep = false;
-						break;
-					}
+					keep = false;
+					break;
 				}
 			}
 			if (keep)

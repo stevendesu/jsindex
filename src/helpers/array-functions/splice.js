@@ -7,50 +7,61 @@ function splice(start, deleteCount)
 		this, [start, deleteCount].concat(items)
 	);
 
+	const indexKeys = Object.keys(this.idx);
+
 	// Then update the index
 	// The "items" must be appended to the appropriate indexes, and the
 	// "removed" must be taken out
 	// Adding "items"
 	// NOTE: This doesn't preserve the order of the collection in the index
 	for (let i = 0; i < items.length; i++)
-		for (const key in this.idx)
-			if (this.idx.hasOwnProperty(key))
-				if (this.idx[key].hasOwnProperty(items[i][key]))
-					this.idx[key][items[i][key]].push(items[i]);
-				else
-					this.idx[key][items[i][key]] = [items[i]];
+	{
+		for (let j = 0; j < indexKeys.length; j++)
+		{
+			const key = indexKeys[j];
+			if (this.idx[key].hasOwnProperty(items[i][key]))
+				this.idx[key][items[i][key]].push(items[i]);
+			else
+				this.idx[key][items[i][key]] = [items[i]];
+		}
+	}
 
 	// Removing "removed"
 	// First, organize the remove elements to match our index structure
 	const affected = {};
-	for (const key in this.idx)
-		if (this.idx.hasOwnProperty(key))
-		{
-			affected[key] = {};
-			for (let i = 0; i < removed.length; i++)
-				if (affected[key].hasOwnProperty(removed[i][key]))
-					affected[key][removed[i][key]].push(removed[i]);
-				else
-					affected[key][removed[i][key]] = [removed[i]];
-		}
+	for (let i = 0; i < indexKeys.length; i++)
+	{
+		const key = indexKeys[i];
+		affected[key] = {};
+		for (let j = 0; j < removed.length; j++)
+			if (affected[key].hasOwnProperty(removed[j][key]))
+				affected[key][removed[j][key]].push(removed[j]);
+			else
+				affected[key][removed[j][key]] = [removed[j]];
+	}
+
 	// Now filter any sub-indexes that we need to
-	for (const key in affected)
-		if (affected.hasOwnProperty(key))
-			for (const subkey in affected[key])
-				if (affected[key].hasOwnProperty(subkey))
-				{
-					const oldIndex = this.idx[key][subkey];
-					const newIndex = new Array(oldIndex.length);
-					let cnt = 0;
-					for (let i = 0; i < oldIndex.length; i++)
-					{
-						const el = oldIndex[i];
-						if (affected[key][subkey].indexOf(el) >= 0)
-							newIndex[cnt++] = el;
-					}
-					newIndex.length = cnt;
-					this.idx[key][subkey] = newIndex;
-				}
+	const affectedKeys = Object.keys(affected);
+	for (let i = 0; i < affectedKeys.length; i++)
+	{
+		const key = affectedKeys[i];
+		const subkeys = Object.keys(affected[key]);
+		for (let j = 0; j < subkeys.length; j++)
+		{
+			const subkey = subkeys[j];
+			const oldIndex = this.idx[key][subkey];
+			const newIndex = new Array(oldIndex.length);
+			let cnt = 0;
+			for (let k = 0; k < oldIndex.length; k++)
+			{
+				const el = oldIndex[k];
+				if (affected[key][subkey].indexOf(el) >= 0)
+					newIndex[cnt++] = el;
+			}
+			newIndex.length = cnt;
+			this.idx[key][subkey] = newIndex;
+		}
+	}
 
 	// Finally, ensure API compatibility with Array.prototype.splice
 	return removed;
